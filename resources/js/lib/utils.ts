@@ -1,4 +1,4 @@
-import { InertiaLinkProps } from '@inertiajs/react';
+import { InertiaLinkProps, router } from '@inertiajs/react';
 import { type ClassValue, clsx } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 
@@ -15,4 +15,12 @@ export function isSameUrl(
 
 export function resolveUrl(url: NonNullable<InertiaLinkProps['href']>): string {
     return typeof url === 'string' ? url : url.url;
+}
+
+export const handleChangePerPage = (page: number, path: string) => {
+    router.get(
+      path,
+      { perPage: page },
+      { preserveState: true, replace: true }
+    )
 }

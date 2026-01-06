@@ -31,7 +31,7 @@ export interface SharedData {
 }
 
 export interface Links {
-    url: string | null;
+    url: string;
     label: string;
     active: boolean;
 }
