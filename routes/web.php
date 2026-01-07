@@ -18,6 +18,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::prefix('data-pasien')->controller(PasienController::class)->group(function () {
         Route::get('/', 'index')->name('pasien.index');
+        Route::post('/', 'store')->name('pasien.store');
+        Route::put('/{pasien_id}', 'update')->name('pasien.update');
+        Route::delete('/{pasien_id}', 'destroy')->name('pasien.destroy');
     });
 });
 

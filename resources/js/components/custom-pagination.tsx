@@ -24,7 +24,7 @@ const CustomPagination = ({ meta }: CustomPaginationProps) => {
                             size="sm"
                             href={item.url ?? undefined}
                             isActive={item.active}
-                            className={item.active ? "bg-primary text-primary-foreground" : ""}
+                           
                         >
                             {item.label.replace(/&laquo;|&raquo;/g, '')}
                         </PaginationLink>

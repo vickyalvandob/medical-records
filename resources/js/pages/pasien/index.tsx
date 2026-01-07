@@ -2,7 +2,7 @@ import CustomPagination from '@/components/custom-pagination'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
 import AppLayout from '@/layouts/app-layout'
 import { BreadcrumbItem, Pasien } from '@/types'
-import { Head, router, usePage } from '@inertiajs/react'
+import { Form, Head, router, usePage } from '@inertiajs/react'
 import React, { useEffect, useState } from 'react'
 import {
   Select,
@@ -13,9 +13,11 @@ import {
 } from "@/components/ui/select"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
-import { RefreshCcw, Search } from "lucide-react"
+import { RefreshCcw, Search, Trash } from "lucide-react"
 
 import { handleChangePerPage } from '@/lib/utils'
+import FormPasien from './components/FormPasien'
+import DeletePasienAlert from './components/DeletePasienAlert'
 
 
 const breadcumbs: BreadcrumbItem[] = [
@@ -57,8 +59,28 @@ const Index = () => {
       <div className="p-4">
         
       <div className="mb-4 flex items-center justify-between gap-4">
-        {/* Search */}
-        <form className="flex items-center gap-2">
+
+        <div className="flex items-center gap-2">
+          
+          <div className="w-18">
+            <Select
+              defaultValue="10"
+              onValueChange={(value) => handleChangePerPage(Number(value), path)}
+            >
+              <SelectTrigger>
+                <SelectValue placeholder="Per page" />
+              </SelectTrigger>
+
+              <SelectContent>
+                <SelectItem value="5">5</SelectItem>
+                <SelectItem value="10">10</SelectItem>
+                <SelectItem value="25">25</SelectItem>
+                <SelectItem value="50">50</SelectItem>
+                <SelectItem value="100">100</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+
           <Input
             type="text"
             placeholder="Cari nomor pasien / nama"
@@ -66,34 +88,18 @@ const Index = () => {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
           />
-          <Button type="button" variant="secondary" onClick={searchData}>
-            <Search className="mr-2 h-4 w-4" />
-            Search
+
+          <Button type="button" size={"icon"} variant="outline" onClick={searchData}>
+            <Search size={16} />
           </Button>
-          <Button size={"icon"} variant="outline" onClick={clearSearch}>
+          <Button type="button"  size={"icon"} variant="outline" onClick={clearSearch}>
             <RefreshCcw size={16} />
           </Button>
-        </form>
 
-        {/* Per Page Select */}
-        <div className="w-32">
-          <Select
-            defaultValue="10"
-            onValueChange={(value) => handleChangePerPage(Number(value), path)}
-          >
-            <SelectTrigger>
-              <SelectValue placeholder="Per page" />
-            </SelectTrigger>
-
-            <SelectContent>
-              <SelectItem value="5">5</SelectItem>
-              <SelectItem value="10">10</SelectItem>
-              <SelectItem value="25">25</SelectItem>
-              <SelectItem value="50">50</SelectItem>
-              <SelectItem value="100">100</SelectItem>
-            </SelectContent>
-          </Select>
         </div>
+
+        <FormPasien />
+
       </div>
 
 
@@ -115,9 +121,17 @@ const Index = () => {
               <TableCell className='w-10 text-center'>{meta.from + index}</TableCell>
               <TableCell>{pasien.nomor_pasien}</TableCell>
               <TableCell>{pasien.nama_lengkap}</TableCell>
-              <TableCell>{pasien.jenis_kelamin === 'L' ? 'Laki-laki' : 'Perempuan'}</TableCell>
+              <TableCell>{pasien.jenis_kelamin}</TableCell>
               <TableCell>{pasien.usia}</TableCell>
-              <TableCell className='w-32 text-center'>Edit | Hapus</TableCell>
+              <TableCell className='w-32 text-center'>
+                <div className='flex gap-x-1 items-center justify-center'>
+                  <DeletePasienAlert
+                      pasienId={pasien.id}
+                      pasienNama={pasien.nama_lengkap}
+                    />
+                  <FormPasien pasien={pasien} />
+                </div>
+              </TableCell>
             </TableRow>
           ))}
         </TableBody>
