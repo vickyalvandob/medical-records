@@ -13,7 +13,6 @@ import { Button } from '@/components/ui/button'
 import { Trash } from 'lucide-react'
 import { router } from '@inertiajs/react'
 import { useState } from 'react'
-import { toast } from 'sonner'
 
 interface Props {
   pasienId: number
@@ -27,15 +26,12 @@ export default function DeletePasienAlert({
   const [loading, setLoading] = useState(false)
 
   const handleDelete = () => {
+    if (loading) return
+
     setLoading(true)
 
     router.delete(`/data-pasien/${pasienId}`, {
-      onSuccess: () => {
-        toast.success('Data pasien berhasil dihapus')
-      },
-      onError: () => {
-        toast.error('Gagal menghapus data pasien')
-      },
+      preserveScroll: true,
       onFinish: () => {
         setLoading(false)
       },
@@ -45,7 +41,12 @@ export default function DeletePasienAlert({
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
-        <Button variant="destructive" size="icon">
+        <Button
+          variant="destructive"
+          size="icon"
+          disabled={loading}
+          aria-label="Hapus pasien"
+        >
           <Trash size={16} />
         </Button>
       </AlertDialogTrigger>
@@ -68,7 +69,7 @@ export default function DeletePasienAlert({
           <AlertDialogAction
             onClick={handleDelete}
             disabled={loading}
-            className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+            className="bg-destructive text-white hover:bg-destructive/90"
           >
             {loading ? 'Menghapus...' : 'Hapus'}
           </AlertDialogAction>

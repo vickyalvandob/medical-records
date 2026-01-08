@@ -27,7 +27,6 @@ import InputError from '@/components/input-error'
 import { useForm } from '@inertiajs/react'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
-import { toast } from 'sonner'
 
 interface FormPasienProps {
   pasien?: Pasien
@@ -64,6 +63,7 @@ const FormPasien = ({ pasien }: FormPasienProps) => {
   /* =========================
      SYNC DATA SAAT EDIT
   ========================= */
+  
   useEffect(() => {
     if (pasien) {
       setData({
@@ -79,7 +79,7 @@ const FormPasien = ({ pasien }: FormPasienProps) => {
     } else {
       reset()
     }
-  }, [pasien])
+  }, [pasien]) 
 
   /* =========================
      SUBMIT
@@ -94,14 +94,6 @@ const FormPasien = ({ pasien }: FormPasienProps) => {
         setOpen(false)
         clearErrors()
         reset()
-        toast.success(
-          isEdit
-            ? 'Data pasien berhasil diperbarui'
-            : 'Data pasien berhasil ditambahkan'
-        )
-      },
-      onError: () => {
-        toast.error('Terjadi kesalahan saat menyimpan data')
       },
     })
   }
@@ -143,6 +135,7 @@ const FormPasien = ({ pasien }: FormPasienProps) => {
                 <Label>Nama Lengkap</Label>
                 <Input
                   required
+                  className="mt-2"
                   value={data.nama_lengkap}
                   onChange={(e) =>
                     setData('nama_lengkap', e.target.value)
@@ -155,6 +148,7 @@ const FormPasien = ({ pasien }: FormPasienProps) => {
               <div>
                 <Label>Tanggal Lahir</Label>
                 <Input
+                  className="mt-2"
                   type="date"
                   required
                   value={data.tanggal_lahir}
@@ -264,6 +258,7 @@ const FormPasien = ({ pasien }: FormPasienProps) => {
               <div>
                 <Label>Alamat</Label>
                 <Textarea
+                  className="mt-2"
                   value={data.alamat}
                   onChange={(e) =>
                     setData('alamat', e.target.value)

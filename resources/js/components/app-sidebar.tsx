@@ -32,6 +32,11 @@ const mainNavItems: NavItem[] = [
         href: '/diagnosa',
         icon: ActivitySquare,
     },
+    {
+        title: 'Rekam Medis',
+        href: '/rekam-medis',
+        icon: Folder,
+    },
 ];
 
 const footerNavItems: NavItem[] = [

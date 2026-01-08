@@ -26,14 +26,17 @@ const breadcumbs: BreadcrumbItem[] = [
 
 const Index = () => {
 
-  const {pasiens}: any = usePage().props
+  const { pasiens } = usePage<{
+    pasiens: {
+      data: Pasien[]
+      meta: any
+    }
+  }>().props
+
   const [search, setSearch] = useState('')
   const meta = pasiens.meta
   const path = meta.path
 
-  useEffect(() => {
-    console.log(pasiens);
-  }, []);
 
   const searchData = () => {
     router.get(
@@ -105,7 +108,7 @@ const Index = () => {
 
       <Table>
         <TableHeader>
-          <TableRow>
+          <TableRow className='bg-gray-50 dark:bg-neutral-900'>
             <TableHead className="w-10 text-center">No</TableHead>
             <TableHead>Nomor Pasien</TableHead>
             <TableHead>Nama</TableHead>

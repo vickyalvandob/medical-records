@@ -72,3 +72,14 @@ export interface Pasien {
     nomor_ktp: string;
     usia: string;
 }
+
+export interface Diagnosa {
+    id: number;
+    pasien_id: number;
+    dokter: string;
+    keluhan: string;
+    diagnosa: string;
+    tindakan: string;
+    obat: string;
+    tanggal_periksa: string;
+}
