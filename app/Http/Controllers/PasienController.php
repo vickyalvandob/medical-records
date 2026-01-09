@@ -91,4 +91,11 @@ class PasienController extends Controller
         });
         return response()->json($rekamMedis);
     }
+
+    public function show($pasien_id)
+    {
+        $query = Pasien::with('diagnosa')->findOrFail($pasien_id);
+        $pasien = PasienResource::make($query);
+        return response()->json($pasien);
+    }
 }

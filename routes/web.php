@@ -21,6 +21,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::prefix('data-pasien')->controller(PasienController::class)->group(function () {
         Route::get('/', 'index')->name('pasien.index');
         Route::post('/', 'store')->name('pasien.store');
+        Route::get('/{pasien_id}/show', 'show')->name('pasien.show');
         Route::put('/{pasien_id}', 'update')->name('pasien.update');
         Route::delete('/{pasien_id}', 'destroy')->name('pasien.destroy');
         Route::get('/get-json', 'getDataPasienJson')->name('pasien.getDataPasienJson');

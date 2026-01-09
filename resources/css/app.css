@@ -167,7 +167,6 @@
       px-3
       text-sm
       text-foreground
-      shadow-sm
       transition-colors;
 }
 
@@ -232,11 +231,12 @@
 .react-select__menu {
     @apply
       mt-2
+      p-2
       rounded-md
       border
       border-border
       bg-popover
-      shadow-md
+      shadow-sm
       overflow-hidden;
 }
 

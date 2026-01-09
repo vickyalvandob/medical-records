@@ -71,6 +71,7 @@ export interface Pasien {
     pekerjaan: string;
     nomor_ktp: string;
     usia: string;
+    diagnosa?: Diagnosa[];
 }
 
 export interface Diagnosa {

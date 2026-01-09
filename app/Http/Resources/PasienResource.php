@@ -16,6 +16,7 @@ class PasienResource extends JsonResource
     {
         return array_merge(parent::toArray($request), [
             'usia' => $this->getUsia($this->tanggal_lahir),
+            'diagnosa' => DiagnosaResource::collection($this->whenLoaded('diagnosa')),
         ]);
     }
 }
